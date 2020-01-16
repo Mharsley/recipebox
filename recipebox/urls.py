@@ -14,6 +14,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
 from recipebox import views
 from recipebox.models import Author, RecipeItem
 admin.site.register(Author)
@@ -25,5 +26,6 @@ urlpatterns = [
     path('author/<int:key_id>/', views.author_view, name='authorpage'),
     path('addauthor/', views.add_author_view, name='addauthorpage'),
     path('additem/', views.add_item_view, name='additempage'),
-    path('login/', views.login_view, name='loginpage')
+    path('login/', views.login_view, name='loginpage'),
+    path('logout/', views.logout_view, name='logout')
 ]

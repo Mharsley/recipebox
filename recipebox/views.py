@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from recipebox.models import RecipeItem, Author
-from recipebox.forms import AuthorAdd, NewsItemAdd, LoginForm
+from recipebox.forms import AuthorAdd, NewsItemAdd, LoginForm, RecipeForm
 
 
 def index(request):
@@ -18,6 +18,26 @@ def recipe_item_view(request, key_id):
     recipe = RecipeItem.objects.get(pk=key_id)
     return render(request, html, {'data': recipe})
 
+@login_required()
+def add_recipe(request, *args, **kwargs):
+    html = 'addauthor.html'
+
+    if request.method == "POST":
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            Recipe.objects.create(
+                title=data['title'],
+                description=data['description'],
+                time_required=data['time_required'],
+                instructions=data['instructions'],
+                author=data['author']
+            )
+            return HttpResponseRedirect(reverse('homepage'))
+    form = RecipeForm()
+
+    return render(request,html,{'form': form})
+
 
 def author_view(request, key_id):
     html = 'author_page.html'
@@ -28,7 +48,7 @@ def author_view(request, key_id):
         'recipes': items
         })
 
-
+@login_required
 def add_author_view(request):
     html = "author_add.html"
     if request.method == 'POST':

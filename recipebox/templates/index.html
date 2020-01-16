@@ -1,4 +1,4 @@
-<h1>A wonderful list of recipes! </h1>
+<h1> list of recipes! </h1>
 <ol>
     {% for foo in data %}
         <li><a href="/recipe/{{ foo.id }}/">{{ foo.title }}</a>, by <a href="/author/{{ foo.author_id }}/">{{ foo.author }}</a></li>

@@ -9,6 +9,13 @@ class RecipeForm(ModelForm):
 
 class AuthorAdd(forms.Form):
     name = forms.CharField(max_length=50)
+    
+class RecipeForm(forms.Form):
+     title = forms.CharField(max_length=50)
+     description = forms.CharField(max_length=500)
+    time_required = forms.CharField(max_length=20)
+    instructions = forms.CharField(widget=forms.Textarea)
+     author = forms.ModelChoiceField(queryset=Author.objects.all())
 
 
 class NewsItemAdd(forms.Form):
