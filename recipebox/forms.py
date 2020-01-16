@@ -1,6 +1,11 @@
 from django import forms
-from recipebox.models import Author
+from recipebox.models import Author, Recipe
+from django.forms import ModelForm
 
+class RecipeForm(ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ['title', 'description', 'time_required', 'instructions', 'author']
 
 class AuthorAdd(forms.Form):
     name = forms.CharField(max_length=50)
